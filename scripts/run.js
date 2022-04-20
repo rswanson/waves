@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-process-exit */
 const main = async () => {
@@ -13,10 +14,15 @@ const main = async () => {
   let waveCount;
   waveCount = await waveContract.getTotalWaves();
 
-  const waveTxn = await waveContract.wave();
+  let waveTxn = await waveContract.wave();
   await waveTxn.wait();
 
   waveCount = await waveContract.getTotalWaves();
+  for (let i = 0; i < 10; i++) {
+    waveTxn = await waveContract.connect(randomPerson).wave();
+    await waveTxn.wait();
+    waveCount = await waveContract.getTotalWaves();
+  }
 };
 
 const runMain = async () => {
