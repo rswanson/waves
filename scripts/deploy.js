@@ -1,3 +1,5 @@
+/* eslint-disable no-process-exit */
+/* eslint-disable no-undef */
 const main = async () => {
   const [deployer] = await hre.ethers.getSigners();
   const accountBalance = await deployer.getBalance();
