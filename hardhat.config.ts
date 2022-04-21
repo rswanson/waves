@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import * as dotenv from "dotenv";
 
 import { HardhatUserConfig, task } from "hardhat/config";
@@ -29,6 +30,10 @@ const config: HardhatUserConfig = {
       url: process.env.ROPSTEN_URL || "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
+    rinkeby: {
+      url: process.env.ALCHEMY_API_URL,
+      accounts: [process.env.RINKEBY_ACCOUNT_KEY || ""],
     },
   },
   gasReporter: {
