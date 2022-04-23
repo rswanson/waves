@@ -24,6 +24,8 @@ const main = async () => {
 
   let waveTxn = await waveContract.wave("The first wave!");
   await waveTxn.wait();
+  waveTxn = await waveContract.wave("The first wave!");
+  await waveTxn.wait();
 
   contractBalance = await hre.ethers.provider.getBalance(waveContract.address);
   console.log(

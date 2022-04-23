@@ -44,11 +44,16 @@ export interface WavePortalInterface extends utils.Interface {
   functions: {
     "getAllWaves()": FunctionFragment;
     "getTotalWaves()": FunctionFragment;
+    "lastWavedAt(address)": FunctionFragment;
     "wave(string)": FunctionFragment;
   };
 
   getFunction(
-    nameOrSignatureOrTopic: "getAllWaves" | "getTotalWaves" | "wave"
+    nameOrSignatureOrTopic:
+      | "getAllWaves"
+      | "getTotalWaves"
+      | "lastWavedAt"
+      | "wave"
   ): FunctionFragment;
 
   encodeFunctionData(
@@ -59,6 +64,7 @@ export interface WavePortalInterface extends utils.Interface {
     functionFragment: "getTotalWaves",
     values?: undefined
   ): string;
+  encodeFunctionData(functionFragment: "lastWavedAt", values: [string]): string;
   encodeFunctionData(functionFragment: "wave", values: [string]): string;
 
   decodeFunctionResult(
@@ -67,6 +73,10 @@ export interface WavePortalInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "getTotalWaves",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "lastWavedAt",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "wave", data: BytesLike): Result;
@@ -123,6 +133,8 @@ export interface WavePortal extends BaseContract {
 
     getTotalWaves(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    lastWavedAt(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
     wave(
       _message: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -135,6 +147,8 @@ export interface WavePortal extends BaseContract {
 
   getTotalWaves(overrides?: CallOverrides): Promise<BigNumber>;
 
+  lastWavedAt(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
   wave(
     _message: string,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -146,6 +160,8 @@ export interface WavePortal extends BaseContract {
     ): Promise<WavePortal.WaveStructOutput[]>;
 
     getTotalWaves(overrides?: CallOverrides): Promise<BigNumber>;
+
+    lastWavedAt(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     wave(_message: string, overrides?: CallOverrides): Promise<void>;
   };
@@ -168,6 +184,8 @@ export interface WavePortal extends BaseContract {
 
     getTotalWaves(overrides?: CallOverrides): Promise<BigNumber>;
 
+    lastWavedAt(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
     wave(
       _message: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -178,6 +196,11 @@ export interface WavePortal extends BaseContract {
     getAllWaves(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getTotalWaves(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    lastWavedAt(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     wave(
       _message: string,
