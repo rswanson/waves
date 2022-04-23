@@ -16,6 +16,7 @@ const main = async () => {
   await waveTxn.wait();
 
   const [_, randomPerson] = await hre.ethers.getSigners();
+  // eslint-disable-next-line prefer-const
   waveCount = await waveContract.getTotalWaves();
   for (let i = 0; i < 5; i++) {
     message = "Wave Looper #" + i;
