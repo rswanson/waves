@@ -2,27 +2,28 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-process-exit */
 const main = async () => {
-  const [owner, randomPerson] = await hre.ethers.getSigners();
   // eslint-disable-next-line no-undef
   const waveContractFactory = await hre.ethers.getContractFactory("WavePortal");
   const waveContract = await waveContractFactory.deploy();
   await waveContract.deployed();
 
   console.log("Contract deployed to: ", waveContract.address);
-  console.log("Contract deployed by:", owner.address);
 
   let waveCount;
-  waveCount = await waveContract.getTotalWaves();
+  let message;
 
-  let waveTxn = await waveContract.wave();
+  let waveTxn = await waveContract.wave("The first wave!");
   await waveTxn.wait();
 
+  const [_, randomPerson] = await hre.ethers.getSigners();
   waveCount = await waveContract.getTotalWaves();
-  for (let i = 0; i < 10; i++) {
-    waveTxn = await waveContract.connect(randomPerson).wave();
+  for (let i = 0; i < 5; i++) {
+    message = "Wave Looper #" + i;
+    waveTxn = await waveContract.connect(randomPerson).wave(message);
     await waveTxn.wait();
-    waveCount = await waveContract.getTotalWaves();
   }
+  const allWaves = await waveContract.getAllWaves();
+  console.log(allWaves);
 };
 
 const runMain = async () => {
